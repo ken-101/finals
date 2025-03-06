@@ -27,7 +27,6 @@ const toggleMenu = () => {
       <router-link to="/projects" @click="toggleMenu"><img src="../assets/imgs/project.png" alt="info" class="info-icon"> Projects</router-link>
       <router-link to="/comments" @click="toggleMenu"><img src="../assets/imgs/feedback.png" alt="info" class="info-icon"> Comments</router-link>
       <router-link to="/about" @click="toggleMenu"><img src="../assets/imgs/info.png" alt="info" class="info-icon"> About</router-link>
-      <router-link to="/contact" @click="toggleMenu">Contact</router-link>
     </div>
   </nav>
 </template>
@@ -38,7 +37,7 @@ nav {
   height: 80px;
   background: #00285300;
   justify-content: center;
-  padding: 10px 20px;
+  padding: 0px 20px;
   position: fixed;
   width: 100%;
   top: 0;
@@ -168,8 +167,14 @@ a{
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 10px 30px;
   gap: 30px;
   position: relative;
+  background: linear-gradient(45deg, #39c0ff, #ff00ff);
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 0 15px rgba(57, 192, 255, 0.8), 
+              0 0 30px rgba(255, 0, 255, 0.6);
+  animation: neonGlow 2s infinite alternate;
 }
 .nav-links a {
   display: flex;

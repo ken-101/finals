@@ -17,20 +17,25 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('mousemove', updateMousePosition);
 });
+
 </script>
 
 <template>
     <div class="app-container">
+      <div class="floating-images">
+        <div class="floating-image" v-for="i in 10" :key="i"></div>
+      </div>
       <div class="cursor-light" :style="{
         left: mouseX + 'px',
         top: mouseY + 'px'
-      }"></div>
+      }"></div> 
         <!-- Navigation Bar -->
             <Navbar />
 
             <!-- Main Content -->
             <router-view />
     </div>
+    
 </template>
 
 <style>
@@ -41,13 +46,58 @@ onUnmounted(() => {
   overflow: hidden;
 }
 
+.floating-images {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
 
+.floating-image {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  backdrop-filter: blur(2px);
+  animation: float 15s linear infinite;
+}
+
+.floating-image:nth-child(2n) {
+  animation-duration: 20s;
+  width: 70px;
+  height: 70px;
+}
+
+.floating-image:nth-child(3n) {
+  animation-duration: 25s;
+  width: 40px;
+  height: 40px;
+}
+
+.floating-image:nth-child(4n) {
+  animation-duration: 30s;
+  width: 60px;
+  height: 60px;
+}
+
+@keyframes float {
+  0% {
+    transform: translate(-100%, random(100) + '%');
+  }
+  100% {
+    transform: translate(100vw, random(100) + '%');
+  }
+}
 
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background: linear-gradient(to bottom, #0b5586, #7bc5f0);
+  background: linear-gradient(to bottom, #000000, #3f3f3f);
 }
 
 h1,h2,h3,h4,h5,h6,p,span,a {

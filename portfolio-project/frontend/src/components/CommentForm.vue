@@ -8,7 +8,7 @@ const rating = ref(5); // Initialize with default value of 5
 const loading = ref(false);
 const error = ref('');
 
-const emit = defineEmits(['submit-comment']);
+const emit = defineEmits(['submit-comment', 'refresh-comments']);
 
 const submitComment = async () => {
   if (comment.value.trim() && author.value.trim()) {
@@ -37,6 +37,9 @@ const submitComment = async () => {
       comment.value = '';
       author.value = '';
       rating.value = 5;
+      
+      // Emit refresh event to trigger comments reload
+      emit('refresh-comments');
     } catch (e) {
       error.value = e.message;
     } finally {
@@ -47,7 +50,7 @@ const submitComment = async () => {
 </script>
 
 <template>
-  <div>
+  <div class="comment-form">
     <h2>Leave a Comment</h2>
     <form @submit.prevent="submitComment">
       <input
@@ -82,39 +85,76 @@ const submitComment = async () => {
 </template>
 
 <style scoped>
-input, textarea {
+.comment-form {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(147, 51, 234, 0.3);
+  box-shadow: 0 0 20px rgba(147, 51, 234, 0.4);
+  backdrop-filter: blur(5px);
+}
+
+h2 {
+  color: #ff79c6;
+  text-shadow: 0 0 10px rgba(255, 121, 198, 0.7);
+  margin-bottom: 20px;
+}
+
+input, textarea, select {
   width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-.rating-input {
-  margin-bottom: 10px;
-}
-
-.rating-input label {
-  display: block;
-  margin-bottom: 5px;
+  padding: 10px;
+  margin-bottom: 15px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(147, 51, 234, 0.5);
+  border-radius: 6px;
+  color: #e2e2e2;
+  transition: all 0.3s ease;
 }
 
-.rating-input select {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: #ff79c6;
+  box-shadow: 0 0 15px rgba(255, 121, 198, 0.5);
 }
 
-.error-message {
-  color: red;
-  margin-top: 10px;
-}
 textarea {
   height: 100px;
   resize: vertical;
 }
+
+.rating-input label {
+  color: #e2e2e2;
+  text-shadow: 0 0 8px rgba(147, 51, 234, 0.6);
+  margin-bottom: 8px;
+  display: block;
+}
+
 button {
-  padding: 8px 16px;
+  background: linear-gradient(45deg, #9333ea, #ff79c6);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 15px rgba(147, 51, 234, 0.5);
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(147, 51, 234, 0.7);
+}
+
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #ff5555;
+  text-shadow: 0 0 8px rgba(255, 85, 85, 0.7);
+  margin-top: 10px;
 }
 </style>

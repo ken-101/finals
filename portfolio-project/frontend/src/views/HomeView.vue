@@ -2,9 +2,28 @@
 import { ref } from 'vue';
 
 const isMorse = ref(true);
+const isOpen = ref(false);
+
 const toggleMorse = () => {
   isMorse.value = !isMorse.value;
 };
+
+const toggleDropdown = () => {
+  isOpen.value = !isOpen.value;
+};
+
+const images = [
+  { src: '/src/assets/bg/gun.png', alt: 'Gun 1' },
+  { src: '/src/assets/bg/gun.png', alt: 'Gun 1' },
+  { src: '/src/assets/bg/gun.png', alt: 'Gun 1' },
+  { src: '/src/assets/bg/gun.png', alt: 'Gun 1' },
+  { src: '/src/assets/bg/gun.png', alt: 'Gun 1' },
+  { src: '/src/assets/bg/gun.png', alt: 'Gun 1' },
+  { src: '/src/assets/bg/gun.png', alt: 'Gun 1' },
+  { src: '/src/assets/bg/gun.png', alt: 'Gun 1' },
+  { src: '/src/assets/bg/gun.png', alt: 'Gun 1' },
+
+];
 </script>
 
 <template>
@@ -56,9 +75,84 @@ const toggleMorse = () => {
       </div>
     </div>
   </div>
+  <div class="dropdown-container">
+    <button @click="toggleDropdown" class="dropdown-button">Weapons ⬇</button>
+
+    <div v-if="isOpen" class="dropdown-menu">
+      <ul>
+        <li v-for="(item, index) in images" :key="index">
+          <img :src="item.src" :alt="item.alt" />
+        </li>
+      </ul>
+    </div>
+
+    <p>Other content stays below the dropdown.</p>
+  </div>
 </template>
 
 <style scoped>
+.dropdown-container {
+  width: 85vw;
+  background: #121212;
+  color: white;
+  margin: auto;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 0, 255, 0.3);
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+.dropdown-button {
+  width: 100%;
+  padding: 10px;
+  background: #4facfe;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.dropdown-button:hover {
+  background: #ff00ff;
+  color: black;
+}
+
+.dropdown-menu {
+  margin-top: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dropdown-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.dropdown-menu li {
+  padding: 8px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.dropdown-menu img {
+  width: 100%;
+  max-width: 100px;
+  border-radius: 5px;
+  border: 2px solid rgba(255, 0, 255, 0.3);
+  transition: transform 0.2s ease-in-out;
+}
+
+.dropdown-menu img:hover {
+  transform: scale(1.1);
+  border-color: #ff00ff;
+}
 .landing {
   display: flex;
   flex-direction: row;
@@ -66,26 +160,23 @@ const toggleMorse = () => {
   padding: 3rem;
   min-height: 85vh;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   max-width: auto;
   margin: 0 auto;
+  position: relative;
+  overflow: hidden;
 }
 
-.left {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-}
-
-.right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 2rem;
+.landing::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(41, 21, 223, 0.1), rgba(255, 0, 255, 0.1));
+  pointer-events: none;
+  z-index: -1;
 }
 
 .right h1 {
@@ -94,7 +185,70 @@ const toggleMorse = () => {
   margin-bottom: 1.5rem;
   line-height: 1.2;
   font-weight: bold;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 0 10px #4facfe, 0 0 20px #4facfe, 0 0 30px #4facfe;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px #4facfe, 0 0 20px #4facfe, 0 0 30px #4facfe;
+  }
+  to {
+    text-shadow: 0 0 20px #4facfe, 0 0 30px #4facfe, 0 0 40px #ff00ff;
+  }
+}
+
+.morsecode {
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(26, 26, 26, 0.8);
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  color: #ffffff;
+  font-size: 1rem;
+  box-shadow: 0 0 15px #4facfe, 0 0 30px rgba(255, 0, 255, 0.5);
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+}
+
+.morsecode:hover {
+  transform: translateX(-50%) translateY(-5px);
+  box-shadow: 0 0 20px #4facfe, 0 0 40px rgba(255, 0, 255, 0.7);
+}
+
+.aboutme, .skills {
+  margin: 4rem auto;
+  padding: 3rem;
+  background: linear-gradient(145deg, rgba(19, 19, 19, 0.8), rgba(28, 28, 28, 0.8));
+  color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(79, 172, 254, 0.3);
+  backdrop-filter: blur(10px);
+  max-width: 1000px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.progress {
+  height: 100%;
+  background: linear-gradient(90deg, #4facfe, #00f2fe, #ff00ff);
+  border-radius: 5px;
+  transition: width 1s ease-in-out;
+  box-shadow: 0 0 10px rgba(79, 172, 254, 0.5);
+}
+
+.comment-link {
+  font-weight: bold;
+  font-size: 25px;
+  color: #4facfe;
+  text-shadow: 0 0 10px rgba(79, 172, 254, 0.5);
+  transition: all 0.3s ease;
+}
+
+.comment-link:hover {
+  color: #ff00ff;
+  text-shadow: 0 0 15px rgba(255, 0, 255, 0.7);
 }
 
 .right p {
@@ -221,64 +375,175 @@ const toggleMorse = () => {
   
   font-weight: bold;
   font-size: 25px;
-  color: #000000;
+  color: #ff8ae2;
 }
 .linktag{
   font-family: 'Times New Roman', Times, serif;
 }
 .skills {
-  margin: 4rem auto;
-  padding: 3rem;
-  background: linear-gradient(145deg, #131313, #1c1c1c);
-  color: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-  max-width: 1000px;
+  text-align: center;
+  padding: 20px;
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+  max-width: 600px;
+  margin: auto;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 30px rgba(57, 192, 255, 0.2);
 }
 
 .skills h2 {
-  font-size: 2.5rem;
-  margin-bottom: 2rem;
-  color: #ffffff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  font-size: 28px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+  background: linear-gradient(45deg, rgb(255, 249, 255), #a6b7be);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 15px rgba(212, 212, 212, 0.8),
+               0 0 25px rgba(250, 250, 250, 0.8);
+}
+
+@keyframes titleGlow {
+  from {
+    text-shadow: 0 0 15px rgba(255, 0, 255, 0.8),
+                 0 0 25px rgba(57, 192, 255, 0.8);
+  }
+  to {
+    text-shadow: 0 0 20px rgba(255, 0, 255, 1),
+                 0 0 35px rgba(57, 192, 255, 1);
+  }
 }
 
 .skill-bar {
-  margin-bottom: 1.5rem;
+  margin: 25px 0;
+  padding: 15px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.skill-bar:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .skill-info {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.5rem;
-  color: #e0e0e0;
-  font-size: 1.1rem;
+  font-size: 18px;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+  padding: 5px 10px;
+  margin-bottom: 10px;
+}
+
+.skill-info span {
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
 .progress-bar {
   width: 100%;
-  height: 10px;
-  background: #2a2a2a;
-  border-radius: 5px;
+  height: 15px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
   overflow: hidden;
+  position: relative;
 }
 
 .progress {
   height: 100%;
-  background: linear-gradient(90deg, #39c0ff, #0b5586);
-  border-radius: 5px;
-  transition: width 1s ease-in-out;
+  background: linear-gradient(90deg, #ff00ff, #39c0ff);
+  box-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
+  border-radius: 10px;
+  
+  animation: progressGlow 2.5s ease-in-out forwards;
+}
+
+/* Add staggered delays to each skill bar */
+.skill-bar:nth-child(2) .progress {
+  animation-delay: 0.3s;
+}
+
+.skill-bar:nth-child(3) .progress {
+  animation-delay: 0.6s;
+}
+
+.skill-bar:nth-child(4) .progress {
+  animation-delay: 0.9s;
+}
+
+.skill-bar:nth-child(5) .progress {
+  animation-delay: 1.2s;
+}
+
+.progress::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+              rgba(255, 255, 255, 0) 0%,
+              rgba(255, 255, 255, 0.2) 50%,
+              rgba(255, 255, 255, 0) 100%);
+  animation: shimmer 1s infinite alternate-reverse;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes progressGlow {
+  0% {
+    width: 0;
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.8),
+                0 0 30px rgba(57, 192, 255, 0.6);
+  }
 }
 
 @media (max-width: 768px) {
   .skills {
-    margin: 2rem 1rem;
-    padding: 2rem;
+    padding: 15px;
+    margin: 10px;
   }
 
   .skills h2 {
-    font-size: 2rem;
-    text-align: center;
+    font-size: 24px;
+  }
+
+  .skill-info {
+    font-size: 16px;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .progress-bar {
+    height: 12px;
+  }
+
+  .progress {
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.6);
+  }
+
+  .skill-bar {
+    margin: 15px 0;
+    padding: 10px;
   }
 }
 </style>

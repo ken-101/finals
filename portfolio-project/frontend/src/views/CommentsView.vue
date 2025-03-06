@@ -6,20 +6,29 @@ import CommentForm from "../components/CommentForm.vue";
 
 const comments = ref([]);
 
-onMounted(async () => {
+const loadComments = async () => {
   comments.value = await fetchComments();
-});
+};
+
+onMounted(loadComments);
 
 const handleSubmitComment = async (commentData) => {
-  // TODO: Implement API call to save comment
-  console.log('New comment:', commentData);
+  // Comment is already saved by the form component
+  await loadComments(); // Refresh the comments list
+};
+
+const handleRefreshComments = async () => {
+  await loadComments();
 };
 </script>
 
 <template>
   <div class="comments-container">
     <h1>Comments</h1>
-    <CommentForm @submit-comment="handleSubmitComment" />
+    <CommentForm 
+      @submit-comment="handleSubmitComment"
+      @refresh-comments="handleRefreshComments"
+    />
     <div class="comments-list" v-if="comments.length">
       <CommentCard v-for="comment in comments" :key="comment.id" :comments="comment" />
     </div>
