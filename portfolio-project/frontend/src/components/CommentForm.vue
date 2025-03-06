@@ -53,24 +53,12 @@ const submitComment = async () => {
   <div class="comment-form">
     <h2>Leave a Comment</h2>
     <form @submit.prevent="submitComment">
-      <input
-        type="text"
-        v-model="author"
-        placeholder="Your name"
-        required
-      />
-      <textarea
-        v-model="comment"
-        placeholder="Write your comment..."
-        required
+      <input type="text" v-model="author" class="fontform" placeholder="Your name" required/>
+      <textarea v-model="comment" class="fontform" placeholder="Write your comment..." required
       ></textarea>
       <div class="rating-input">
         <label for="rating">Rating:</label>
-        <select
-          id="rating"
-          v-model="rating"
-          required
-        >
+        <select id="rating" v-model="rating" required >
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -85,6 +73,16 @@ const submitComment = async () => {
 </template>
 
 <style scoped>
+@media screen and (min-width: 768px) {
+  .comment-form {
+    width: 800px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .comment-form {
+    width: 350px;
+  }
+}
 .comment-form {
   background: rgba(0, 0, 0, 0.2);
   padding: 20px;
@@ -101,7 +99,7 @@ h2 {
 }
 
 input, textarea, select {
-  width: 100%;
+  width: 90%;
   padding: 10px;
   margin-bottom: 15px;
   background: rgba(0, 0, 0, 0.3);
@@ -121,7 +119,19 @@ textarea {
   height: 100px;
   resize: vertical;
 }
-
+.rating-input{
+  width: 250px;
+  height: 120px;
+}
+#rating{
+  height: 50px;
+  
+  background-color: #000000;
+  color: #ffffff;
+}
+.fontform{
+  font-size: 17px;
+}
 .rating-input label {
   color: #e2e2e2;
   text-shadow: 0 0 8px rgba(147, 51, 234, 0.6);

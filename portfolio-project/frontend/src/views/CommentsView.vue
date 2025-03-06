@@ -38,14 +38,31 @@ const handleRefreshComments = async () => {
 
 <style scoped>
 .comments-container {
-  max-width: 800px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 340px;
+  max-width: 90vw;
+  margin: 100px auto 0;
   padding: 20px;
+  gap: 40px;
 }
-
-.comments-list {
+@media screen and (min-width: 768px) {
+  .comments-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 30px;
   margin: 20px 0;
 }
+}
+@media screen and (max-width: 768px) {
+  .comments-list {
+  width: 370px;
+}
+}
+
 
 .comment {
   background: #f8f9fa;

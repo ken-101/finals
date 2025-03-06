@@ -12,7 +12,7 @@ const toggleMenu = () => {
     <div class="nav-bar">
       <div class="logo">
         <router-link to="/">
-          <img src="../assets/imgs/logo.png" alt="Logo">
+          <img style="width: 80px; padding: 10px;" src="../assets/imgs/logo-moon.png" alt="Logo">
         </router-link>
       </div>
       <div class="hamburger" @click="toggleMenu">
@@ -70,10 +70,10 @@ a{
   width: 30px;
   vertical-align: middle;
   margin: 0 10px;
-  filter: drop-shadow(0 0 2px black) contrast(150%) invert(1);
+  filter: drop-shadow(0 0 2px black) contrast(100%) invert(1);
   transition: transform 0.3s ease;
 }
-
+/* mobile view */
 @media screen and (max-width: 768px) {
   .nav-bar {
     display: flex;
@@ -81,20 +81,25 @@ a{
     justify-content: space-between;
     padding: 0 20px;
   }
-  
   .logo {
     display: block;
   }
-
   .logo img {
     width: 40px;
     width: auto;
     position: absolute;
     top: 50%;
     left: 50%;
+    filter: drop-shadow(0 0 5px black) contrast(100%) invert(1);
+    
     transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
   }
-  
+  .logo img:hover {
+    filter: drop-shadow(0 0 2px black) contrast(100%) invert(1);
+    
+
+  }
   .hamburger {
     display: flex;
     flex-direction: column;
@@ -103,7 +108,6 @@ a{
     z-index: 1001;
     padding: 10px;
   }
-
   .hamburger span {
     display: block;
     width: 25px;
@@ -112,7 +116,6 @@ a{
     margin: 3px 0;
     transition: 0.3s;
   }
-
   .nav-links {
     display: flex;
     visibility: hidden;
@@ -131,13 +134,11 @@ a{
     gap: 35px;
     transition: visibility 0s linear 0.3s, opacity 0.3s ease;
   }
-
   .nav-links.active {
     visibility: visible;
     opacity: 1;
     transition-delay: 0s;
   }
-
   .nav-links a {
     border-bottom: 1px solid rgb(197, 197, 197);
     border-radius: 50px;
@@ -147,49 +148,49 @@ a{
     justify-content: center;
   }
 }
+
+/* mobile view */
 @media screen and (min-width: 788px) {
-.hamburger {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-  padding: 5px;
-}
-
-.hamburger span {
-  display: block;
-  width: 25px;
-  height: 3px;
-  background-color: white;
-  margin: 3px 0;
-  transition: 0.3s;
-}
-.nav-links {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 30px;
-  gap: 30px;
-  position: relative;
-  background: linear-gradient(45deg, #39c0ff, #ff00ff);
-  border-radius: 0 0 20px 20px;
-  box-shadow: 0 0 15px rgba(57, 192, 255, 0.8), 
-              0 0 30px rgba(255, 0, 255, 0.6);
-  animation: neonGlow 2s infinite alternate;
-}
-.nav-links a {
-  display: flex;
-  align-items: center;
-  color: rgb(230, 230, 230);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-.nav-links a:hover {
-  color: #39c0ff;
-  text-decoration: none;
-}
-
-.nav-links a:hover .info-icon {
-  transform: scale(1.1);
-}
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 5px;
+  }
+  .hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 3px 0;
+    transition: 0.3s;
+  }
+  .nav-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 30px;
+    gap: 30px;
+    position: relative;
+    background: linear-gradient(45deg, #39c0ff, #ff00ff);
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 0 15px rgba(57, 192, 255, 0.8), 
+                0 0 30px rgba(255, 0, 255, 0.6);
+    animation: neonGlow 2s infinite alternate;
+  }
+  .nav-links a {
+    display: flex;
+    align-items: center;
+    color: rgb(230, 230, 230);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .nav-links a:hover {
+    color: #39c0ff;
+    text-decoration: none;
+  }
+  .nav-links a:hover .info-icon {
+    transform: scale(1.1);
+  }
 }
 </style>
