@@ -1,7 +1,7 @@
 const API_URL =
   import.meta.env.MODE === "development"
-    ? "http://localhost:5000"
-    : "https://your-backend.pythonanywhere.com";
+    ? "https://kenja085.pythonanywhere.com"
+    : "https://kenja085.pythonanywhere.com";
 
 export async function fetchComments() {
   try {
