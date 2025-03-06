@@ -4,28 +4,36 @@ import Navbar from "./components/Navbar.vue"; // ✅ Import Navbar component
 
 const mouseX = ref(0);
 const mouseY = ref(0);
+const isClicked = ref(false);
 
 const updateMousePosition = (e) => {
   mouseX.value = e.clientX;
   mouseY.value = e.clientY;
 };
 
+const handleClick = () => {
+  isClicked.value = true;
+  setTimeout(() => {
+    isClicked.value = false;
+  }, 500); // Reset after animation completes
+};
+
 onMounted(() => {
   window.addEventListener('mousemove', updateMousePosition);
+  window.addEventListener('click', handleClick);
 });
 
 onUnmounted(() => {
   window.removeEventListener('mousemove', updateMousePosition);
+  window.removeEventListener('click', handleClick);
 });
 
 </script>
 
 <template>
     <div class="app-container">
-      <div class="floating-images">
-        <div class="floating-image" v-for="i in 10" :key="i"></div>
-      </div>
-      <div class="cursor-light" :style="{
+      
+      <div class="cursor-light" :class="{ 'clicked': isClicked }" :style="{
         left: mouseX + 'px',
         top: mouseY + 'px'
       }"></div> 
@@ -95,8 +103,7 @@ onUnmounted(() => {
 
 body {
   font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+  padding-bottom: 10%;
   background: linear-gradient(to bottom, #000000, #3f3f3f);
 }
 
@@ -106,15 +113,36 @@ h1,h2,h3,h4,h5,h6,p,span,a {
 
 @media (min-width: 1024px) {
   .cursor-light {
+    z-index: 3000;
     pointer-events: none;
     position: fixed;
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    background: radial-gradient(circle at center, rgba(0, 0, 0, 0.397) 0%, rgba(255, 255, 255, 0) 70%);
+    background: radial-gradient(circle at center, rgba(208, 56, 255, 0.397) 0%, rgba(255, 255, 255, 0) 70%);
     transform: translate(-50%, -50%);
     z-index: 999;
     transition: all 100ms ease;
+  }
+  
+  .cursor-light.clicked {
+    animation: pulse 0.5s ease;
+  }
+  
+  @keyframes pulse {
+    0% {
+      width: 150px;
+      height: 150px;
+    }
+    50% {
+      width: 50px;
+      height: 50px;
+      background: radial-gradient(circle at center, rgba(0, 0, 0, 0.7) 0%, rgba(255, 255, 255, 0) 70%);
+    }
+    100% {
+      width: 150px;
+      height: 150px;
+    }
   }
 }
 </style>

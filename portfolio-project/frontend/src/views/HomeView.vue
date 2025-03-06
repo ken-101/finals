@@ -17,17 +17,12 @@ const images = [
   { src: '/src/assets/bg/gun.png', alt: 'Gun 1' },
   { src: '/src/assets/bg/gun.png', alt: 'Gun 1' },
   { src: '/src/assets/bg/gun.png', alt: 'Gun 1' },
-  { src: '/src/assets/bg/gun.png', alt: 'Gun 1' },
-  { src: '/src/assets/bg/gun.png', alt: 'Gun 1' },
-  { src: '/src/assets/bg/gun.png', alt: 'Gun 1' },
-  { src: '/src/assets/bg/gun.png', alt: 'Gun 1' },
-  { src: '/src/assets/bg/gun.png', alt: 'Gun 1' },
-
 ];
 </script>
 
 <template>
   <div class="landing">
+    <!-- Existing code remains the same -->
     <div class="left">
         <div class="introimg">
           <img src="../assets/imgs/profile.jpg" alt="">
@@ -52,47 +47,53 @@ const images = [
       anime/manga.
     </p>
   </div>
-  <div class="skills">
-    <h2>Skills</h2>
-    <div class="skill-bar">
-      <div class="skill-info"> <span>Python</span> <span>50%</span> </div>
-      <div class="progress-bar"><div class="progress" style="width: 50%"></div>
+  <div class="display1">
+    <div class="skills">
+      <h2>Skills</h2>
+      <div class="skill-bar">
+        <div class="skill-info"> <span>Python</span> <span>50%</span> </div>
+        <div class="progress-bar"><div class="progress" style="width: 50%"></div>
+        </div>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-info"> <span>HTML $ CSS</span> <span>90%</span> </div>
+        <div class="progress-bar"><div class="progress" style="width: 90%"></div>
+        </div>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-info"> <span>JS</span> <span>20%</span> </div>
+        <div class="progress-bar"><div class="progress" style="width: 20%"></div>
+        </div>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-info"> <span>Java</span> <span>30%</span> </div>
+        <div class="progress-bar"><div class="progress" style="width: 30%"></div>
+        </div>
       </div>
     </div>
-    <div class="skill-bar">
-      <div class="skill-info"> <span>HTML $ CSS</span> <span>90%</span> </div>
-      <div class="progress-bar"><div class="progress" style="width: 90%"></div>
-      </div>
+    <div class="dropdown-container">
+      <button @click="toggleDropdown" class="dropdown-button">
+        Weapons {{ isOpen ? '⬆' : '⬇' }}
+      </button>
+      <transition name="dropdown">
+        <div v-if="isOpen" class="dropdown-menu">
+          <ul>
+            <li v-for="(item, index) in images" :key="index">
+              <transition name="fade" :delay="index * 100">
+                <img :src="item.src" :alt="item.alt" />
+              </transition>
+            </li>
+          </ul>
+        </div>
+      </transition>
     </div>
-    <div class="skill-bar">
-      <div class="skill-info"> <span>JS</span> <span>20%</span> </div>
-      <div class="progress-bar"><div class="progress" style="width: 20%"></div>
-      </div>
-    </div>
-    <div class="skill-bar">
-      <div class="skill-info"> <span>Java</span> <span>30%</span> </div>
-      <div class="progress-bar"><div class="progress" style="width: 30%"></div>
-      </div>
-    </div>
-  </div>
-  <div class="dropdown-container">
-    <button @click="toggleDropdown" class="dropdown-button">Weapons ⬇</button>
-
-    <div v-if="isOpen" class="dropdown-menu">
-      <ul>
-        <li v-for="(item, index) in images" :key="index">
-          <img :src="item.src" :alt="item.alt" />
-        </li>
-      </ul>
-    </div>
-
-    <p>Other content stays below the dropdown.</p>
   </div>
 </template>
 
 <style scoped>
+/* Keep all existing styles */
 .dropdown-container {
-  width: 85vw;
+  width: 500px;
   background: #121212;
   color: white;
   margin: auto;
@@ -124,6 +125,7 @@ const images = [
   border-radius: 5px;
   padding: 10px;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  overflow: hidden;
 }
 
 .dropdown-menu ul {
@@ -152,6 +154,44 @@ const images = [
 .dropdown-menu img:hover {
   transform: scale(1.1);
   border-color: #ff00ff;
+}
+
+/* Animation classes */
+.dropdown-enter-active,
+.dropdown-leave-active {
+  transition: all 0.5s ease;
+  max-height: 1000px;
+  opacity: 1;
+  transform-origin: top;
+}
+
+.dropdown-enter-from,
+.dropdown-leave-to {
+  max-height: 0;
+  opacity: 0;
+  transform: scaleY(0);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.3s ease;
+}
+
+.fade-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+/* Rest of the existing styles */
+.display1{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 2rem 0 ;
 }
 .landing {
   display: flex;
@@ -217,85 +257,6 @@ const images = [
   transform: translateX(-50%) translateY(-5px);
   box-shadow: 0 0 20px #4facfe, 0 0 40px rgba(255, 0, 255, 0.7);
 }
-
-.aboutme, .skills {
-  margin: 4rem auto;
-  padding: 3rem;
-  background: linear-gradient(145deg, rgba(19, 19, 19, 0.8), rgba(28, 28, 28, 0.8));
-  color: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 0 30px rgba(79, 172, 254, 0.3);
-  backdrop-filter: blur(10px);
-  max-width: 1000px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.progress {
-  height: 100%;
-  background: linear-gradient(90deg, #4facfe, #00f2fe, #ff00ff);
-  border-radius: 5px;
-  transition: width 1s ease-in-out;
-  box-shadow: 0 0 10px rgba(79, 172, 254, 0.5);
-}
-
-.comment-link {
-  font-weight: bold;
-  font-size: 25px;
-  color: #4facfe;
-  text-shadow: 0 0 10px rgba(79, 172, 254, 0.5);
-  transition: all 0.3s ease;
-}
-
-.comment-link:hover {
-  color: #ff00ff;
-  text-shadow: 0 0 15px rgba(255, 0, 255, 0.7);
-}
-
-.right p {
-  color: #e0e0e0;
-  font-size: 1.3rem;
-  line-height: 1.6;
-  margin-bottom: 2rem;
-}
-
-.introimg {
-  position: relative;
-  width: 100%;
-  max-width: 450px;
-  margin: 0 auto;
-}
-
-.introimg img {
-  width: 100%;
-  height: auto;
-  border-radius: 20px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-  transition: transform 0.3s ease;
-}
-
-.introimg img:hover {
-  transform: scale(1.02);
-}
-
-.morsecode {
-  position: absolute;
-  bottom: -25px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #1a1a1a;
-  padding: 0.8rem 1.5rem;
-  border-radius: 25px;
-  color: #ffffff;
-  font-size: 1rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-}
-
-.morsecode:hover {
-  transform: translateX(-50%) translateY(-5px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-}
-
 .aboutme {
   margin: 4rem auto;
   padding: 3rem;
@@ -374,8 +335,10 @@ const images = [
 .comment-link {
   
   font-weight: bold;
-  font-size: 25px;
-  color: #ff8ae2;
+  font-size: 45px;
+  background: linear-gradient(90deg, #fe4f4f, #00f2fe, #ff00ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .linktag{
   font-family: 'Times New Roman', Times, serif;
@@ -385,6 +348,7 @@ const images = [
   padding: 20px;
   color: white;
   font-family: 'Orbitron', sans-serif;
+  min-width: 500px;
   max-width: 600px;
   margin: auto;
   background: rgba(0, 0, 0, 0.2);
