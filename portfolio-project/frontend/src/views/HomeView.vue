@@ -32,7 +32,7 @@ const images = [
         </div>
     </div>
     <div class="right">
-      <h1>Welcome to My Portfolio</h1>
+      <h1>Welcome to My Portfolio <span>ฅ^•ﻌ•^ฅ</span></h1>
       <p class="linktag">Explore my projects and feel free to leave a comment <router-link to="/comments" class="comment-link"> Here !</router-link></p>
     </div>
   </div>
@@ -111,7 +111,7 @@ const images = [
   cursor: pointer;
   font-weight: bold;
   border-radius: 5px;
-  transition: 0.3s;
+  transition: transform 0.2s ease-in-out;
 }
 
 .dropdown-button:hover {
@@ -186,8 +186,6 @@ const images = [
   opacity: 0;
   transform: translateY(-10px);
 }
-
-/* Rest of the existing styles */
 .display1{
   display: flex;
   flex-wrap: wrap;
@@ -257,6 +255,86 @@ const images = [
   transform: translateX(-50%) translateY(-5px);
   box-shadow: 0 0 20px #4facfe, 0 0 40px rgba(255, 0, 255, 0.7);
 }
+
+.aboutme, .skills {
+  margin: 30px auto;
+  padding: 3rem;
+  background: linear-gradient(145deg, rgba(19, 19, 19, 0.8), rgba(28, 28, 28, 0.8));
+  color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(79, 172, 254, 0.3);
+  backdrop-filter: blur(10px);
+  min-width: 500px;
+  max-width: 1000px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.progress {
+  height: 100%;
+  background: linear-gradient(90deg, #4facfe, #00f2fe, #ff00ff);
+  border-radius: 5px;
+  transition: width 1s ease-in-out;
+  box-shadow: 0 0 10px rgba(79, 172, 254, 0.5);
+}
+
+.comment-link {
+  font-weight: bold;
+  font-size: 25px;
+  color: #4facfe;
+  text-shadow: 0 0 10px rgba(79, 172, 254, 0.5);
+  transition: all 0.3s ease;
+}
+
+.comment-link:hover {
+  color: #fe4fef;
+  text-shadow: 0 0 15px rgba(255, 0, 255, 0.7);
+}
+
+.right p {
+  color: #e0e0e0;
+  font-size: 1.3rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.introimg {
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.introimg img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease;
+}
+
+.introimg img:hover {
+  transform: scale(1.02);
+}
+
+.morsecode {
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1a1a;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  color: #ffffff;
+  font-size: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.morsecode:hover {
+  transform: translateX(-50%) translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
 .aboutme {
   margin: 4rem auto;
   padding: 3rem;
@@ -348,7 +426,6 @@ const images = [
   padding: 20px;
   color: white;
   font-family: 'Orbitron', sans-serif;
-  min-width: 500px;
   max-width: 600px;
   margin: auto;
   background: rgba(0, 0, 0, 0.2);
