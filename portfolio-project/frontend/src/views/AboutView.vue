@@ -4,7 +4,7 @@
 <template>
   <div>
     <h1>About Me</h1>
-    <p>Hi, I'm [Your Name]. I'm a passionate developer skilled in Vue, Flask, and Supabase.</p>
+    <p>Hi, I'm John Kenneth Jajurie. I'm a passionate developer skilled in Vue, Flask, and Supabase.</p>
   </div>
 </template>
 

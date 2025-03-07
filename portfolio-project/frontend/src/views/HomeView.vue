@@ -2,22 +2,10 @@
 import { ref } from 'vue';
 
 const isMorse = ref(true);
-const isOpen = ref(false);
 
 const toggleMorse = () => {
   isMorse.value = !isMorse.value;
 };
-
-const toggleDropdown = () => {
-  isOpen.value = !isOpen.value;
-};
-
-const images = [
-  { src: '/src/assets/bg/gun.png', alt: 'Gun 1' },
-  { src: '/src/assets/bg/gun.png', alt: 'Gun 1' },
-  { src: '/src/assets/bg/gun.png', alt: 'Gun 1' },
-  { src: '/src/assets/bg/gun.png', alt: 'Gun 1' },
-];
 </script>
 
 <template>
@@ -70,22 +58,6 @@ const images = [
         <div class="progress-bar"><div class="progress" style="width: 30%"></div>
         </div>
       </div>
-    </div>
-    <div class="dropdown-container">
-      <button @click="toggleDropdown" class="dropdown-button">
-        Weapons {{ isOpen ? '⬆' : '⬇' }}
-      </button>
-      <transition name="dropdown">
-        <div v-if="isOpen" class="dropdown-menu">
-          <ul>
-            <li v-for="(item, index) in images" :key="index">
-              <transition name="fade" :delay="index * 100">
-                <img :src="item.src" :alt="item.alt" />
-              </transition>
-            </li>
-          </ul>
-        </div>
-      </transition>
     </div>
   </div>
 </template>
@@ -219,8 +191,6 @@ const images = [
   margin-bottom: 2rem;
 }
 
-
-
 .morsecode {
   position: absolute;
   bottom: -25px;
@@ -277,99 +247,7 @@ const images = [
   align-items: center;
   padding: 2rem 0 ;
 }
-.dropdown-container {
-  width: 350px;
-  background: #121212;
-  color: white;
-  margin: auto;
-  padding: 15px;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 0, 255, 0.3);
-  box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
-}
-.dropdown-button {
-  width: 100%;
-  padding: 10px;
-  background: #4facfe;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  border-radius: 5px;
-  transition: transform 0.2s ease-in-out;
-}
 
-.dropdown-button:hover {
-  background: #ff00ff;
-  color: black;
-}
-
-.dropdown-menu {
-  margin-top: 10px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 5px;
-  padding: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  overflow: hidden;
-}
-
-.dropdown-menu ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-}
-
-.dropdown-menu li {
-  padding: 8px;
-  transition: 0.3s;
-  cursor: pointer;
-}
-
-.dropdown-menu img {
-  width: 100%;
-  max-width: 100px;
-  border-radius: 5px;
-  border: 2px solid rgba(255, 0, 255, 0.3);
-  transition: transform 0.2s ease-in-out;
-}
-
-.dropdown-menu img:hover {
-  transform: scale(1.1);
-  border-color: #ff00ff;
-}
-
-/* Animation classes */
-.dropdown-enter-active,
-.dropdown-leave-active {
-  transition: all 0.5s ease;
-  max-height: 1000px;
-  opacity: 1;
-  transform-origin: top;
-}
-
-.dropdown-enter-from,
-.dropdown-leave-to {
-  max-height: 0;
-  opacity: 0;
-  transform: scaleY(0);
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: all 0.3s ease;
-}
-
-.fade-enter-from {
-  opacity: 0;
-  transform: translateY(10px);
-}
-
-.fade-leave-to {
-  opacity: 0;
-  transform: translateY(-10px);
-}
 .comment-link {
   
   font-weight: bold;
@@ -577,8 +455,6 @@ const images = [
   }
 }
 
-
-
 @media (max-width: 768px) {
   .skills {
     padding: 15px;
@@ -625,5 +501,4 @@ const images = [
   background-size: 300% 100%; /* To make the gradient larger than the container */
   animation: gradientMove 5s linear infinite; /* 5s duration, linear speed, infinite loop */
 }
-
 </style>
